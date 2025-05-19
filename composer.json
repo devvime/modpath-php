@@ -1,0 +1,16 @@
+{
+    "name": "devvime/mini-php",
+    "description": "Mini Framework PHP",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mini\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "devvime"
+        }
+    ],
+    "require": {}
+}
