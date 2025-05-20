@@ -14,7 +14,7 @@ class UserController implements ControllerInterface
     public function __construct(private UserService $userService) {}
 
     #[Route('/users', method: 'GET')]
-    public function index(): void
+    public function index($request, $response): void
     {
         $users = ['Alice', 'Bob', 'Charlie'];
         View::render('users', ['users' => $users]);
@@ -22,27 +22,27 @@ class UserController implements ControllerInterface
 
     #[Route('/users/{id:int}', method: 'GET')]
     #[Middleware(AuthMiddleware::class)]
-    public function show($params): void
+    public function show($request, $response): void
     {
-        $user = $this->userService->getUserInfo($params['id']);
-        View::render('user', ['id' => $params['id'], 'name' => $user]);
+        $user = $this->userService->getUserInfo($request->params['id']);
+        View::render('user', ['id' => $request->params['id'], 'name' => $user]);
     }
 
     #[Route('/users', method: 'POST')]
-    public function store(): void
+    public function store($request, $response): void
     {
         echo "Storing new user...";
     }
 
     #[Route('/users/{id}', method: 'PUT')]
-    public function update($params): void
+    public function update($request, $response): void
     {
-        echo "Updating user #{$params['id']}...";
+        echo "Updating user #{$request->params['id']}...";
     }
 
     #[Route('/users/{id}', method: 'DELETE')]
-    public function destroy($params): void
+    public function destroy($request, $response): void
     {
-        echo "Deleting user #{$params['id']}...";
+        echo "Deleting user #{$request->params['id']}...";
     }
 }

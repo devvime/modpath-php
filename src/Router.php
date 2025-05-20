@@ -3,6 +3,8 @@
 namespace Mini;
 
 use ReflectionClass;
+use Mini\Request;
+use Mini\Response;
 use Mini\Container;
 use Mini\RouterParams;
 use Mini\MiddlewareManager;
@@ -59,7 +61,11 @@ class Router
                 
                 $controller = $this->container->resolve($route['controller']);
                 $params = RouterParams::extractTypedParams($matches, $paramTypes);
-                call_user_func_array([$controller, $route['action']], [$params]);
+
+                $request = new Request($params);
+                $response = new Response();
+
+                call_user_func_array([$controller, $route['action']], [$request, $response]);
                 return;
             }
         }

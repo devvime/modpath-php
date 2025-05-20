@@ -4,7 +4,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mini\\": "src/"
+            "Mini\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "authors": [
@@ -12,5 +13,15 @@
             "name": "devvime"
         }
     ],
-    "require": {}
+    "scripts": {
+        "test": "./vendor/bin/pest"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }
