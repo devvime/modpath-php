@@ -1,6 +1,6 @@
 <h1>Users list</h1>
 <ul>
-    <?php foreach ($users as $user): ?>
-        <li><?= htmlspecialchars($user) ?></li>
-    <?php endforeach; ?>
+    <loop($users as $user)>
+        <li>{{ $user }}</li>
+    <endloop>
 </ul>

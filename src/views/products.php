@@ -1,6 +1,6 @@
 <h1>Product list</h1>
 <ul>
-    <?php foreach ($products as $product): ?>
-        <li><?= htmlspecialchars($product) ?></li>
-    <?php endforeach; ?>
+    <loop($products as $product)>
+        <li>{{ $product }}</li>
+    <endloop>
 </ul>
