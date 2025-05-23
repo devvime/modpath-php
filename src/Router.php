@@ -22,7 +22,7 @@ class Router
 
     public function __construct()
     {
-        $this->requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $this->requestPath = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         $this->container = new Container();
         $this->routePrefix = [];
