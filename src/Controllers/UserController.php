@@ -14,7 +14,9 @@ use Mini\Services\UserService;
 class UserController implements ControllerInterface
 {
     #[Prefix(path: '/user', middleware: AuthMiddleware::class)]
-    public function __construct(private UserService $userService) {}
+    public function __construct(
+        private UserService $userService
+    ) {}
 
     #[Route(path: '', method: 'GET')]
     public function index($request, $response): void

@@ -13,7 +13,9 @@ use Mini\Services\ProductService;
 class ProductController implements ControllerInterface
 {
     #[Prefix(path: '/product')]
-    public function __construct(private ProductService $productService) {}
+    public function __construct(
+        private ProductService $productService
+    ) {}
 
     #[Route(path: '', method: 'GET')]
     public function index($request, $response): void

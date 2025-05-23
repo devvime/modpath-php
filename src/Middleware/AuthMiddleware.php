@@ -7,7 +7,6 @@ use Mini\Interface\MiddlewareInterface;
 class AuthMiddleware implements MiddlewareInterface {
 
     public function handle(): bool {
-        echo 'Middlweare OK';
         return true;
     }
     
