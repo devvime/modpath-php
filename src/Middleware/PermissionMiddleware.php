@@ -4,10 +4,10 @@ namespace Mini\Middleware;
 
 use Mini\Interface\MiddlewareInterface;
 
-class AuthMiddleware implements MiddlewareInterface {
+class PermissionMiddleware implements MiddlewareInterface {
 
     public function handle(): bool {
-        echo 'Middlweare OK';
+        echo 'Permission OK';
         return true;
     }
     

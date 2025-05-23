@@ -18,9 +18,13 @@ class MiddlewareManager
         }
     }
 
-    public static function getMiddlewares(array $middlewares)
+    public static function getMiddlewares(array $middlewares, string | null $prefixMiddleware = null)
     {
         $middlewaresArray = [];
+
+        if ($prefixMiddleware !== null) {
+            $middlewaresArray[] = $prefixMiddleware;
+        }
 
         foreach ($middlewares as $middlewareAttr) {
             $middlewaresArray[] = $middlewareAttr->newInstance()->className;

@@ -10,6 +10,7 @@ use Mini\RouterParams;
 use Mini\MiddlewareManager;
 use Mini\Attribute\Route;
 use Mini\Attribute\Middleware;
+use Mini\Attribute\Prefix;
 
 class Router
 {
@@ -17,12 +18,21 @@ class Router
     private string $requestPath;
     private string $requestMethod;
     private Container $container;
+    private array $routePrefix;
 
     public function __construct()
     {
         $this->requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         $this->container = new Container();
+        $this->routePrefix = [];
+    }
+
+    public function registerRoutes(array $controllers)
+    {
+        foreach ($controllers as $controller) {
+            $this->registerRoutesFromController($controller);
+        }
     }
 
     public function registerRoutesFromController(string $controllerClass): void
@@ -31,13 +41,22 @@ class Router
 
         foreach ($refClass->getMethods() as $method) {
 
+            foreach ($method->getAttributes(Prefix::class) as $prefix_attr) {
+                $route_prefix = $prefix_attr->newInstance();
+                $this->routePrefix['path'] = $route_prefix->path;
+                $this->routePrefix['middleware'] = $route_prefix->middleware;
+            }
+
             foreach ($method->getAttributes(Route::class) as $attr) {
 
                 $route = $attr->newInstance();
-                $middlewares = MiddlewareManager::getMiddlewares($method->getAttributes(Middleware::class));
+                $middlewares = MiddlewareManager::getMiddlewares(
+                    middlewares: $method->getAttributes(Middleware::class), 
+                    prefixMiddleware: $this->routePrefix['middleware']
+                );
 
                 $this->routes[] = [
-                    'pattern' => $route->path,
+                    'pattern' => $this->routePrefix['path'] . $route->path,
                     'method' => strtoupper($route->method),
                     'controller' => $controllerClass,
                     'action' => $method->getName(),
