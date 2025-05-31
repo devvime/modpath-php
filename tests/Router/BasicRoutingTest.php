@@ -21,7 +21,7 @@ it('@404 GET route not found', function () {
 
 it('@index GET route', function () {
 
-    $_SERVER['REQUEST_URI'] = '/hello';
+    $_SERVER['REQUEST_URI'] = '/user';
     $_SERVER['REQUEST_METHOD'] = 'GET';
 
     $router = new Router();
@@ -31,7 +31,7 @@ it('@index GET route', function () {
     $router->dispatch();
     $output = ob_get_clean();
 
-    expect($output)->toBe('Hello World');
+    expect($output)->toBe('Users list');
 
 });
 
@@ -47,7 +47,7 @@ it('@show GET route with url param', function () {
     $router->dispatch();
     $output = ob_get_clean();
 
-    expect($output)->toBe('1');
+    expect($output)->toBe('Info for user id: 1');
 
 });
 
@@ -79,7 +79,7 @@ it('@update PUT route', function () {
     $router->dispatch();
     $output = ob_get_clean();
 
-    expect($output)->toBe('Updating user #1');
+    expect($output)->toBe('Updating user id: 1');
 
 });
 
@@ -95,6 +95,6 @@ it('@destroy DELETE route', function () {
     $router->dispatch();
     $output = ob_get_clean();
 
-    expect($output)->toBe('Deleting user #1');
+    expect($output)->toBe('Deleting user id: 1');
 
 });

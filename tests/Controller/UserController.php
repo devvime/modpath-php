@@ -3,40 +3,41 @@
 namespace Tests\Controller;
 
 use Mini\Attribute\Route;
+use Mini\Attribute\Prefix;
 use Mini\Interface\ControllerInterface;
-use Tests\Service\UserService;
 
 class UserController implements ControllerInterface
 {
-    public function __construct(private UserService $userService) {}
+    #[Prefix(path: '/user')]
+    public function __construct() {}
 
-    #[Route('/hello', method: 'GET')]
+    #[Route(path: '', method: 'GET')]
     public function index($request, $response): void
     {
-        $response->render('Hello World');
+        $response->render('Users list');
     }
 
-    #[Route('/user/{id:int}', method: 'GET')]
+    #[Route(path: '/{id:int}', method: 'GET')]
     public function show($request, $response): void
     {
-        $response->render($request->params['id']);
+        $response->render("Info for user id: {$request->params['id']}");
     }
 
-    #[Route('/user', method: 'POST')]
+    #[Route(path: '', method: 'POST')]
     public function store($request, $response): void
     {
-        $response->render("Storing new user");
+        echo "Storing new user";
     }
 
-    #[Route('/user/{id}', method: 'PUT')]
+    #[Route(path: '/{id}', method: 'PUT')]
     public function update($request, $response): void
     {
-        $response->render("Updating user #{$request->params['id']}");
+        echo "Updating user id: {$request->params['id']}";
     }
 
-    #[Route('/user/{id}', method: 'DELETE')]
+    #[Route(path: '/{id}', method: 'DELETE')]
     public function destroy($request, $response): void
     {
-        $response->render("Deleting user #{$request->params['id']}");
+        echo "Deleting user id: {$request->params['id']}";
     }
 }
