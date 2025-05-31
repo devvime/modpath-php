@@ -1,9 +1,8 @@
 <?php
 
-namespace Mini\Attribute;
+namespace Forgeon\Attribute;
 
 use Attribute;
-use Mini\Interface\MiddlewareInterface;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Prefix

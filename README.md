@@ -1,4 +1,4 @@
-# Mini PHP
+# Forgeon PHP
 
 ### A Minimal and Expressive PHP Micro Routing Framework
 
@@ -17,9 +17,9 @@ composer install
 ```php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Mini\Router;
-use Mini\Controllers\UserController;
-use Mini\Controllers\ProductController;
+use Forgeon\Router;
+use Forgeon\Controllers\UserController;
+use Forgeon\Controllers\ProductController;
 
 $router = new Router();
 
@@ -36,16 +36,16 @@ $router->dispatch();
 ## 🧽 Defining a Controller with Routes and Middleware
 
 ```php
-namespace Mini\Controllers;
+namespace Forgeon\Controllers;
 
-use Mini\View;
-use Mini\Attribute\Route;
-use Mini\Attribute\Prefix;
-use Mini\Attribute\Middleware;
-use Mini\Interface\ControllerInterface;
-use Mini\Middleware\AuthMiddleware;
-use Mini\Middleware\PermissionMiddleware;
-use Mini\Services\UserService;
+use Forgeon\View;
+use Forgeon\Attribute\Route;
+use Forgeon\Attribute\Prefix;
+use Forgeon\Attribute\Middleware;
+use Forgeon\Interface\ControllerInterface;
+use Forgeon\Middleware\AuthMiddleware;
+use Forgeon\Middleware\PermissionMiddleware;
+use Forgeon\Services\UserService;
 
 class UserController implements ControllerInterface
 {
@@ -130,13 +130,13 @@ public function store($request, $response): void
 
 ## 🛡️ Middleware Structure
 
-All middleware classes must be placed under `Mini\Middleware` and implement the `MiddlewareInterface`.
+All middleware classes must be placed under `Forgeon\Middleware` and implement the `MiddlewareInterface`.
 The `handle()` method is required and must return a boolean indicating whether to continue the request.
 
 ```php
-namespace Mini\Middleware;
+namespace Forgeon\Middleware;
 
-use Mini\Interface\MiddlewareInterface;
+use Forgeon\Interface\MiddlewareInterface;
 
 class AuthMiddleware implements MiddlewareInterface
 {

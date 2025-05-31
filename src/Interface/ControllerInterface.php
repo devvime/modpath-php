@@ -1,9 +1,9 @@
 <?php
 
-namespace Mini\Interface;
+namespace Forgeon\Interface;
 
-use Mini\Request;
-use Mini\Response;
+use Forgeon\Request;
+use Forgeon\Response;
 
 interface ControllerInterface
 {

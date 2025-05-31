@@ -1,6 +1,6 @@
 <?php
 
-namespace Mini\Attribute;
+namespace Forgeon\Attribute;
 
 use Attribute;
 

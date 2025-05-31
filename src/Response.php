@@ -1,6 +1,6 @@
 <?php
 
-namespace Mini;
+namespace Forgeon;
 
 class Response
 {

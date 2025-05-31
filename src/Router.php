@@ -1,16 +1,16 @@
 <?php
 
-namespace Mini;
+namespace Forgeon;
 
 use ReflectionClass;
-use Mini\Request;
-use Mini\Response;
-use Mini\Container;
-use Mini\RouterParams;
-use Mini\MiddlewareManager;
-use Mini\Attribute\Route;
-use Mini\Attribute\Middleware;
-use Mini\Attribute\Prefix;
+use Forgeon\Request;
+use Forgeon\Response;
+use Forgeon\Container;
+use Forgeon\RouterParams;
+use Forgeon\MiddlewareManager;
+use Forgeon\Attribute\Route;
+use Forgeon\Attribute\Middleware;
+use Forgeon\Attribute\Prefix;
 
 class Router
 {

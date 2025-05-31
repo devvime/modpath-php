@@ -1,6 +1,6 @@
 <?php
 
-namespace Mini\Interface;
+namespace Forgeon\Interface;
 
 interface MiddlewareInterface
 {
