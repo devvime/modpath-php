@@ -26,6 +26,8 @@ class View
 
         // <if(condition)> => php if(condition):
         $template = preg_replace('/<if\((.+?)\)>/', '<?php if ($1): ?>', $template);
+        $template = preg_replace('/<elseif\((.+?)\)>/', '<?php elseif ($1): ?>', $template);
+        $template = str_replace('<else>', '<?php else: ?>', $template);
         $template = str_replace('<endif>', '<?php endif; ?>', $template);
 
         // <loop($items as $item)> => php foreach($items as $item):
