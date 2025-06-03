@@ -3,11 +3,11 @@
 namespace Forgeon;
 
 use ReflectionClass;
-use Forgeon\Request;
-use Forgeon\Response;
-use Forgeon\Container;
-use Forgeon\RouterParams;
-use Forgeon\MiddlewareManager;
+use Forgeon\Http\Request;
+use Forgeon\Http\Response;
+use Forgeon\Core\Container;
+use Forgeon\Router\RouterParams;
+use Forgeon\Middleware\MiddlewareManager;
 use Forgeon\Attribute\Route;
 use Forgeon\Attribute\Middleware;
 use Forgeon\Attribute\Prefix;

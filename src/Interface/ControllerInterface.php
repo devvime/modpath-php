@@ -2,8 +2,8 @@
 
 namespace Forgeon\Interface;
 
-use Forgeon\Request;
-use Forgeon\Response;
+use Forgeon\Http\Request;
+use Forgeon\Http\Response;
 
 interface ControllerInterface
 {

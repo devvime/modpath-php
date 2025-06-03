@@ -1,6 +1,6 @@
 {
-    "name": "devvime/mini-php",
-    "description": "Mini Framework PHP",
+    "name": "devvime/forgeon-php",
+    "description": "A Minimal and Expressive PHP Micro Routing Framework",
     "license": "MIT",
     "autoload": {
         "psr-4": {

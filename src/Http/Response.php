@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon;
+namespace Forgeon\Http;
 
 class Response
 {

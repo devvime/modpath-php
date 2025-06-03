@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon;
+namespace Forgeon\View;
 
 class View
 {
