@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon;
+namespace Forgeon\Router;
 
 use ReflectionClass;
 use Forgeon\Http\Request;

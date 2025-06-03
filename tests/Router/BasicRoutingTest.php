@@ -1,6 +1,6 @@
 <?php
 
-use Forgeon\Router;
+use Forgeon\Router\Router;
 use Tests\Controller\UserController;
 
 it('@404 GET route not found', function () {

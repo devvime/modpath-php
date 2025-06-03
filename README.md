@@ -17,7 +17,7 @@ composer install
 ```php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Forgeon\Router;
+use Forgeon\Router\Router;
 use Forgeon\Controllers\UserController;
 use Forgeon\Controllers\ProductController;
 
@@ -38,7 +38,7 @@ $router->dispatch();
 ```php
 namespace Forgeon\Controllers;
 
-use Forgeon\View;
+use Forgeon\View\View;
 use Forgeon\Attribute\Route;
 use Forgeon\Attribute\Prefix;
 use Forgeon\Attribute\Middleware;
