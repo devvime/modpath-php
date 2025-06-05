@@ -1,4 +1,4 @@
-# Forgeon PHP
+# ModPath PHP
 
 ### A Minimal and Expressive PHP Micro Routing Framework
 
@@ -7,7 +7,7 @@
 ## 📦 Installation
 
 ```bash
-composer install
+composer require devvime/modpath
 ```
 
 ---
