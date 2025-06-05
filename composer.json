@@ -1,10 +1,10 @@
 {
-    "name": "devvime/forgeon-php",
+    "name": "devvime/modpath",
     "description": "A Minimal and Expressive PHP Micro Routing Framework",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Forgeon\\": "src/",
+            "ModPath\\": "src/",
             "Tests\\": "tests/"
         }
     },

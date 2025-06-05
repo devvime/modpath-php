@@ -1,16 +1,16 @@
 <?php
 
-namespace Forgeon\Router;
+namespace ModPath\Router;
 
 use ReflectionClass;
-use Forgeon\Http\Request;
-use Forgeon\Http\Response;
-use Forgeon\Core\Container;
-use Forgeon\Router\RouterParams;
-use Forgeon\Middleware\MiddlewareManager;
-use Forgeon\Attribute\Route;
-use Forgeon\Attribute\Middleware;
-use Forgeon\Attribute\Prefix;
+use ModPath\Http\Request;
+use ModPath\Http\Response;
+use ModPath\Core\Container;
+use ModPath\Router\RouterParams;
+use ModPath\Middleware\MiddlewareManager;
+use ModPath\Attribute\Route;
+use ModPath\Attribute\Middleware;
+use ModPath\Attribute\Prefix;
 
 class Router
 {

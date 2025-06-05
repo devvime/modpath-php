@@ -2,9 +2,9 @@
 
 namespace Tests\Controller;
 
-use Forgeon\Attribute\Route;
-use Forgeon\Attribute\Prefix;
-use Forgeon\Interface\ControllerInterface;
+use ModPath\Attribute\Route;
+use ModPath\Attribute\Prefix;
+use ModPath\Interface\ControllerInterface;
 
 class UserController implements ControllerInterface
 {

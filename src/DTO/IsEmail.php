@@ -1,9 +1,9 @@
 <?php
 
-namespace Forgeon\DTO;
+namespace ModPath\DTO;
 
-use Forgeon\Helpers\Message;
-use Forgeon\DTO\Required;
+use ModPath\Helpers\Message;
+use ModPath\DTO\Required;
 
 class IsEmail
 {

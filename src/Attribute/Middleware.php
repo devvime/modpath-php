@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\Attribute;
+namespace ModPath\Attribute;
 
 use Attribute;
 

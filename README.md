@@ -17,9 +17,9 @@ composer install
 ```php
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Forgeon\Router\Router;
-use Forgeon\Controllers\UserController;
-use Forgeon\Controllers\ProductController;
+use ModPath\Router\Router;
+use ModPath\Controllers\UserController;
+use ModPath\Controllers\ProductController;
 
 $router = new Router();
 
@@ -36,16 +36,16 @@ $router->dispatch();
 ## 🧽 Defining a Controller with Routes and Middleware
 
 ```php
-namespace Forgeon\Controllers;
+namespace ModPath\Controllers;
 
-use Forgeon\View\View;
-use Forgeon\Attribute\Route;
-use Forgeon\Attribute\Prefix;
-use Forgeon\Attribute\Middleware;
-use Forgeon\Interface\ControllerInterface;
-use Forgeon\Middleware\AuthMiddleware;
-use Forgeon\Middleware\PermissionMiddleware;
-use Forgeon\Services\UserService;
+use ModPath\View\View;
+use ModPath\Attribute\Route;
+use ModPath\Attribute\Prefix;
+use ModPath\Attribute\Middleware;
+use ModPath\Interface\ControllerInterface;
+use ModPath\Middleware\AuthMiddleware;
+use ModPath\Middleware\PermissionMiddleware;
+use ModPath\Services\UserService;
 
 class UserController implements ControllerInterface
 {
@@ -130,13 +130,13 @@ public function store($request, $response): void
 
 ## 🛡️ Middleware Structure
 
-All middleware classes must be placed under `Forgeon\Middleware` and implement the `MiddlewareInterface`.
+All middleware classes must be placed under `ModPath\Middleware` and implement the `MiddlewareInterface`.
 The `handle()` method is required and must return a boolean indicating whether to continue the request.
 
 ```php
-namespace Forgeon\Middleware;
+namespace ModPath\Middleware;
 
-use Forgeon\Interface\MiddlewareInterface;
+use ModPath\Interface\MiddlewareInterface;
 
 class AuthMiddleware implements MiddlewareInterface
 {
@@ -203,5 +203,6 @@ Equivalent to:
 | If          | `<if($a > $b)> ... <endif>`             | `<?php if ($a > $b): ?> ... <?php endif; ?>`                   |
 | Elseif/Else | `<elseif(...)> ... <else> ...`          | `<?php elseif (...) ?> ... <?php else: ?>`                     |
 | Loop        | `<loop($items as $item)> ... <endloop>` | `<?php foreach ($items as $item): ?> ... <?php endforeach; ?>` |
+| For        | `<for($x = 0; $x <= 10; $x++)> ... <endfor>` | `<?php for ($x = 0; $x <= 10; $x++): ?> ... <?php endfor; ?>` |
 
 ---

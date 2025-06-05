@@ -1,8 +1,8 @@
 <?php
 
-namespace Forgeon\Helpers;
+namespace ModPath\Helpers;
 
-use Forgeon\Http\Response;
+use ModPath\Http\Response;
 
 class Message
 {

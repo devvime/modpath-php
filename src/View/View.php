@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\View;
+namespace ModPath\View;
 
 class View
 {

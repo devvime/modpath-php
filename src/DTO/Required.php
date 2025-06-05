@@ -1,8 +1,8 @@
 <?php
 
-namespace Forgeon\DTO;
+namespace ModPath\DTO;
 
-use Forgeon\Helpers\Message;
+use ModPath\Helpers\Message;
 
 class Required
 {

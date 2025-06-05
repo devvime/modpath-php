@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\Router;
+namespace ModPath\Router;
 
 class RouterParams
 {

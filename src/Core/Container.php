@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\Core;
+namespace ModPath\Core;
 
 use ReflectionClass;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Forgeon\Interface;
+namespace ModPath\Interface;
 
-use Forgeon\Http\Request;
-use Forgeon\Http\Response;
+use ModPath\Http\Request;
+use ModPath\Http\Response;
 
 interface ControllerInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\Middleware;
+namespace ModPath\Middleware;
 
 use DomainException;
 

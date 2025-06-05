@@ -1,6 +1,6 @@
 <?php
 
-namespace Forgeon\Interface;
+namespace ModPath\Interface;
 
 interface MiddlewareInterface
 {
