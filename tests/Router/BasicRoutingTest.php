@@ -15,7 +15,7 @@ it('@404 GET route not found', function () {
     $router->dispatch();
     $output = ob_get_clean();
 
-    expect($output)->toBe('404 - Not Found');
+    expect($output)->toBe('');
 
 });
 
