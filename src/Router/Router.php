@@ -89,6 +89,8 @@ class Router
             }
         }
 
-        header('Location: /404');
+        if ($_SERVER['REQUEST_URI'] !== '/404') {
+            header('Location: /404');
+        }
     }
 }
