@@ -152,7 +152,7 @@ class AuthMiddleware implements MiddlewareInterface
 
 ## 🧹 Template Engine Syntax
 
-> **Note:** All views must be placed in the `src/Views` directory for the `View::render('file')` function to work correctly.
+<!-- > **Note:** All views must be placed in the `src/Views` directory for the `View::render('file')` function to work correctly. -->
 
 ### Display Variables
 
