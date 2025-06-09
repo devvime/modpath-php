@@ -9,7 +9,7 @@ class View
     public static function render(string $templatePath, array $data = []): void
     {
         self::$data = $data;
-        $templatePath = dirname(__DIR__) . "/src/{$templatePath}.php";
+        $templatePath = $_SERVER['DOCUMENT_ROOT'] . "/../src/{$templatePath}.php";
         $template = file_get_contents($templatePath);
         $compiled = self::compile($template);
 
