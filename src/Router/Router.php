@@ -89,8 +89,19 @@ class Router
             }
         }
 
-        if ($_SERVER['REQUEST_URI'] !== '/404') {
+        if (
+            $_SERVER['REQUEST_URI'] !== '/404'
+            && str_contains($_SERVER['REQUEST_URI'], '/api/')
+        ) {
             header('Location: /404');
+        }
+
+        if (
+            isset($_SERVER['SPA'])
+            && $_SERVER['SPA']['active']
+            && !str_contains($_SERVER['REQUEST_URI'], '/api/')
+        ) {
+            $_SERVER['SPA']['dispatch']();
         }
     }
 }
