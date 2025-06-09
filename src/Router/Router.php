@@ -52,11 +52,11 @@ class Router
                 $route = $attr->newInstance();
                 $middlewares = MiddlewareManager::getMiddlewares(
                     middlewares: $method->getAttributes(Middleware::class), 
-                    prefixMiddleware: $this->routePrefix['middleware']
+                    prefixMiddleware: isset($this->routePrefix['middleware']) ? $this->routePrefix['middleware'] : null
                 );
 
                 $this->routes[] = [
-                    'pattern' => $this->routePrefix['path'] . $route->path,
+                    'pattern' => isset($this->routePrefix['path']) ? $this->routePrefix['path'] : '' . $route->path,
                     'method' => strtoupper($route->method),
                     'controller' => $controllerClass,
                     'action' => $method->getName(),
