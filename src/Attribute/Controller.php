@@ -4,11 +4,11 @@ namespace ModPath\Attribute;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_METHOD)]
-class Prefix
+#[Attribute(Attribute::TARGET_CLASS)]
+class Controller
 {
     public function __construct(
         public string $path,
-        public string | null $middleware = null
+        public string|array|null $middleware = null
     ) {}
 }

@@ -3,26 +3,26 @@
 namespace ModPath\Core;
 
 use ReflectionClass;
+use ReflectionNamedType;
 
 class Container
 {
-    public function resolve(string $class)
+    public function resolve(string $class): object
     {
         $refClass = new ReflectionClass($class);
-        $constructor = $refClass->getConstructor();
 
-        if (!$constructor) {
+        // Sem construtor? Instancia direto
+        if (!$refClass->getConstructor()) {
             return new $class();
         }
 
         $params = [];
 
-        foreach ($constructor->getParameters() as $param) {
+        foreach ($refClass->getConstructor()->getParameters() as $param) {
+            $type = $param->getType();
 
-            $paramType = $param->getType();
-            
-            if ($paramType && !$paramType->isBuiltin()) {
-                $params[] = $this->resolve($paramType->getName());
+            if ($type instanceof ReflectionNamedType && !$type->isBuiltin()) {
+                $params[] = $this->resolve($type->getName());
             }
         }
 

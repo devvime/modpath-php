@@ -6,11 +6,12 @@ use ReflectionClass;
 use ModPath\Http\Request;
 use ModPath\Http\Response;
 use ModPath\Core\Container;
-use ModPath\Router\RouterParams;
 use ModPath\Middleware\MiddlewareManager;
 use ModPath\Attribute\Route;
 use ModPath\Attribute\Middleware;
-use ModPath\Attribute\Prefix;
+use ModPath\Attribute\Guard;
+use ModPath\Attribute\Dto;
+use ModPath\Attribute\Controller;
 
 class Router
 {
@@ -18,17 +19,15 @@ class Router
     private string $requestPath;
     private string $requestMethod;
     private Container $container;
-    private array $routePrefix;
 
     public function __construct()
     {
         $this->requestPath = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         $this->container = new Container();
-        $this->routePrefix = [];
     }
 
-    public function registerRoutes(array $controllers)
+    public function registerRoutes(array $controllers): void
     {
         foreach ($controllers as $controller) {
             $this->registerRoutesFromController($controller);
@@ -39,29 +38,44 @@ class Router
     {
         $refClass = new ReflectionClass($controllerClass);
 
+        // Classe pode ter Prefix
+        $classPrefix = '';
+        $classMiddlewares = [];
+
+        if ($prefixAttr = $refClass->getAttributes(Controller::class)) {
+            $prefixInstance = $prefixAttr[0]->newInstance();
+            $classPrefix = $prefixInstance->path ?? '';
+            $classMiddlewares = $prefixInstance->middleware ?? [];
+        }
+
         foreach ($refClass->getMethods() as $method) {
-
-            foreach ($method->getAttributes(Prefix::class) as $prefix_attr) {
-                $route_prefix = $prefix_attr->newInstance();
-                $this->routePrefix['path'] = $route_prefix->path;
-                $this->routePrefix['middleware'] = $route_prefix->middleware;
-            }
-
             foreach ($method->getAttributes(Route::class) as $attr) {
-
                 $route = $attr->newInstance();
+
                 $middlewares = MiddlewareManager::getMiddlewares(
-                    middlewares: $method->getAttributes(Middleware::class), 
-                    prefixMiddleware: isset($this->routePrefix['middleware']) ? $this->routePrefix['middleware'] : null
+                    middlewares: $method->getAttributes(Middleware::class),
+                    prefixMiddleware: $classMiddlewares
+                );
+
+                $guards = MiddlewareManager::getMiddlewares(
+                    middlewares: $method->getAttributes(Guard::class),
+                    prefixMiddleware: $classMiddlewares
+                );
+
+                $dtos = MiddlewareManager::getMiddlewares(
+                    middlewares: $method->getAttributes(Dto::class),
+                    prefixMiddleware: $classMiddlewares
                 );
 
                 $this->routes[] = [
-                    'pattern' => isset($this->routePrefix['path']) ? $this->routePrefix['path'] : '' . $route->path,
+                    'pattern' => $classPrefix . $route->path,
                     'method' => strtoupper($route->method),
                     'controller' => $controllerClass,
                     'action' => $method->getName(),
-                    'middlewares' => $middlewares
-                ];                
+                    'middlewares' => $middlewares,
+                    'guards' => $guards,
+                    'dtos' => $dtos
+                ];
             }
         }
     }
@@ -69,15 +83,18 @@ class Router
     public function dispatch(): void
     {
         foreach ($this->routes as $route) {
-
-            if ($route['method'] !== strtoupper($this->requestMethod)) continue;
+            if ($route['method'] !== strtoupper($this->requestMethod)) {
+                continue;
+            }
 
             [$regex, $paramTypes] = RouterParams::buildRegexFromRoute($route['pattern']);
 
             if (preg_match($regex, $this->requestPath, $matches)) {
 
                 MiddlewareManager::verify($route['middlewares']);
-                
+                MiddlewareManager::verify($route['guards']);
+                MiddlewareManager::verify($route['dtos']);
+
                 $controller = $this->container->resolve($route['controller']);
                 $params = RouterParams::extractTypedParams($matches, $paramTypes);
 
@@ -89,11 +106,14 @@ class Router
             }
         }
 
+        // Fallbacks: 404 ou SPA
         if (
             $_SERVER['REQUEST_URI'] !== '/404'
             && str_contains($_SERVER['REQUEST_URI'], '/api/')
         ) {
-            header('Location: /404');
+            http_response_code(404);
+            echo "404 Not Found";
+            return;
         }
 
         if (

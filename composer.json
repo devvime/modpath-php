@@ -23,5 +23,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "require": {
+        "vlucas/valitron": "^1.4"
     }
 }

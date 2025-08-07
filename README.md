@@ -40,55 +40,47 @@ namespace ModPath\Controllers;
 
 use ModPath\View\View;
 use ModPath\Attribute\Route;
-use ModPath\Attribute\Prefix;
+use ModPath\Attribute\Controller;
 use ModPath\Attribute\Middleware;
 use ModPath\Interface\ControllerInterface;
 use ModPath\Middleware\AuthMiddleware;
 use ModPath\Middleware\PermissionMiddleware;
 use ModPath\Services\UserService;
 
+// Optional: Define a route controller and middleware for all routes in the controller
+#[Controller(path: '/user', middleware: AuthMiddleware::class)]
 class UserController implements ControllerInterface
 {
-    // Optional: Define a route prefix and middleware for all routes in the controller
-    #[Prefix(path: '/user', middleware: AuthMiddleware::class)]
-    public function __construct(
-        private UserService $userService
-    ) {}
+    public function __construct() {}
 
     #[Route(path: '', method: 'GET')]
     public function index($request, $response): void
     {
-        $users = ['Alice', 'Bob', 'Charlie'];
-        View::render('users', ['users' => $users]);
+        $response->send('Users list');
     }
 
-    #[Route(path: '/{id:int}', method: 'GET')]
-    #[Middleware(PermissionMiddleware::class)]
+    #[Route(path: '/{id}', method: 'GET')]
     public function show($request, $response): void
     {
-        $user = $this->userService->getUserInfo($request->params['id']);
-        View::render('user', ['id' => $request->params['id'], 'name' => $user]);
+        $response->send("Info for user id: {$request->params['id']}");
     }
 
     #[Route(path: '', method: 'POST')]
-    #[Middleware(PermissionMiddleware::class)]
     public function store($request, $response): void
     {
-        echo "Storing new user...";
+        $response->send("Storing new user");
     }
 
     #[Route(path: '/{id}', method: 'PUT')]
-    #[Middleware(PermissionMiddleware::class)]
     public function update($request, $response): void
     {
-        echo "Updating user #{$request->params['id']}...";
+        $response->send("Updating user id: {$request->params['id']}");
     }
 
     #[Route(path: '/{id}', method: 'DELETE')]
-    #[Middleware(PermissionMiddleware::class)]
     public function destroy($request, $response): void
     {
-        echo "Deleting user #{$request->params['id']}...";
+        $response->send("Deleting user id: {$request->params['id']}");
     }
 }
 ```
@@ -117,7 +109,9 @@ public function store($request, $response): void
 #[Middleware(PermissionMiddleware::class)]
 public function store($request, $response): void
 {
-    $response->render('Hello World!'); // Render plain text or HTML
+    $response->send('Hello World!'); // Render plain text
+
+    $response->render('views/index', ["mesage" => "Hello world!"]); // Render HTML template
 
     $response->json([
         'status' => 200,
@@ -169,7 +163,7 @@ class AuthMiddleware implements MiddlewareInterface
 <ul>
     <loop($users as $user)>
         <li>{{ $user }}</li>
-    <endloop>
+    </loop>
 </ul>
 ```
 
@@ -188,9 +182,9 @@ Equivalent to:
     <p>Values are equal</p>
 <elseif($a > $b)>
     <p>A is greater than B</p>
-<else>
+<else/>
     <p>Values are different</p>
-<endif>
+</if>
 ```
 
 ---
@@ -200,9 +194,9 @@ Equivalent to:
 | Feature     | Custom Syntax Example                   | PHP Equivalent                                                 |
 | ----------- | --------------------------------------- | -------------------------------------------------------------- |
 | Display     | `{{ $name }}`                           | `<?= htmlspecialchars($name) ?>`                               |
-| If          | `<if($a > $b)> ... <endif>`             | `<?php if ($a > $b): ?> ... <?php endif; ?>`                   |
-| Elseif/Else | `<elseif(...)> ... <else> ...`          | `<?php elseif (...) ?> ... <?php else: ?>`                     |
-| Loop        | `<loop($items as $item)> ... <endloop>` | `<?php foreach ($items as $item): ?> ... <?php endforeach; ?>` |
-| For        | `<for($x = 0; $x <= 10; $x++)> ... <endfor>` | `<?php for ($x = 0; $x <= 10; $x++): ?> ... <?php endfor; ?>` |
+| If          | `<if($a > $b)> ... </if>`             | `<?php if ($a > $b): ?> ... <?php endif; ?>`                   |
+| Elseif/Else | `<elseif(...)> ... <else/> ...`          | `<?php elseif (...) ?> ... <?php else: ?>`                     |
+| Loop        | `<loop($items as $item)> ... </loop>` | `<?php foreach ($items as $item): ?> ... <?php endforeach; ?>` |
+| For        | `<for($x = 0; $x <= 10; $x++)> ... </for>` | `<?php for ($x = 0; $x <= 10; $x++): ?> ... <?php endfor; ?>` |
 
 ---
