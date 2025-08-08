@@ -11,7 +11,7 @@ class Container
     {
         $refClass = new ReflectionClass($class);
 
-        // Sem construtor? Instancia direto
+        // No constructor? Direct instance
         if (!$refClass->getConstructor()) {
             return new $class();
         }

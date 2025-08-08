@@ -25,7 +25,7 @@ class MiddlewareManager
     {
         $middlewareList = [];
 
-        // Suporte a middleware único ou array no prefixo
+        // Support for single or array middleware in prefix
         if ($prefixMiddleware) {
             $middlewareList = array_merge(
                 $middlewareList,
@@ -33,7 +33,7 @@ class MiddlewareManager
             );
         }
 
-        // Middlewares definidos via atributo #[Middleware]
+        // Middleware defined via #[Middleware] attribute
         foreach ($middlewares as $attr) {
             $instance = $attr->newInstance();
             $middlewareList[] = $instance->className;

@@ -38,7 +38,7 @@ class Router
     {
         $refClass = new ReflectionClass($controllerClass);
 
-        // Classe pode ter Prefix
+        // Class can have Prefix
         $classPrefix = '';
         $classMiddlewares = [];
 
@@ -106,7 +106,7 @@ class Router
             }
         }
 
-        // Fallbacks: 404 ou SPA
+        // Fallbacks: 404 or SPA
         if (
             $_SERVER['REQUEST_URI'] !== '/404'
             && str_contains($_SERVER['REQUEST_URI'], '/api/')
