@@ -32,7 +32,7 @@ class View
         echo ob_get_clean();
     }
 
-    protected static function compile(string $template): string
+    public static function compile(string $template): string
     {
         // Interpolation: {{ $var }}
         $template = preg_replace_callback('/\{\{\s*(.+?)\s*\}\}/', function ($matches) {
