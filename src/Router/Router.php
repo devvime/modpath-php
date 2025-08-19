@@ -123,5 +123,7 @@ class Router
         ) {
             $_SERVER['SPA']['dispatch']();
         }
+
+        header('Location: /404');
     }
 }
