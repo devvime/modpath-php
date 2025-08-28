@@ -25,6 +25,9 @@
         }
     },
     "require": {
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "phpmailer/phpmailer": "^6.10",
+        "firebase/php-jwt": "^6.11",
+        "catfan/medoo": "^2.2"
     }
 }
