@@ -2,7 +2,9 @@
 
 namespace ModPath\Helpers;
 
-use Exception;
+use Redis;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\Storage\RedisStorage;
 
 class RateLimit
 {
@@ -11,24 +13,30 @@ class RateLimit
         int $port = 6379,
         int $time = 60,
         int $limit = 5
-    ) {
-        try {
-            $redis = new \Redis();
-            $redis->connect($host, $port);
+    ): bool {
+        $redis = new Redis();
+        $redis->connect($host, $port);
 
-            $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-            $key = "ratelimit:$ip";
+        $storage = new RedisStorage($redis);
 
-            $count = $redis->incr($key);
+        $factory = new RateLimiterFactory([
+            'id' => 'api_ip_limit',
+            'policy' => 'fixed_window',
+            'limit' => $limit,
+            'interval' => "{$time} seconds",
+        ], $storage);
 
-            if ($count === 1) {
-                $redis->expire($key, $time);
-            }
+        $identifier = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+        $limiter = $factory->create($identifier);
 
-            return $count <= $limit;
-        } catch (Exception $e) {
-            error_log("Redis error: " . $e->getMessage());
-            throw $e;
+        $usage = $limiter->consume();
+
+        if (!$usage->isAccepted()) {
+            http_response_code(429);
+            echo 'Too Many Requests';
+            return false;
         }
+
+        return true;
     }
 }
