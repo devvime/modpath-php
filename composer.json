@@ -29,6 +29,7 @@
         "phpmailer/phpmailer": "^6.10",
         "firebase/php-jwt": "^6.11",
         "catfan/medoo": "^2.2",
-        "symfony/rate-limiter": "^7.3"
+        "symfony/rate-limiter": "^7.3",
+        "symfony/cache": "^7.3"
     }
 }
