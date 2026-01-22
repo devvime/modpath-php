@@ -5,7 +5,7 @@ namespace ModPath\Helpers;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class Mailler
+class Mailer
 {
     protected $mail;
 
