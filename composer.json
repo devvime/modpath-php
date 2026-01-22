@@ -4,8 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "ModPath\\": "src/",
-            "Tests\\": "tests/"
+            "ModPath\\": "src/"
         }
     },
     "authors": [
@@ -13,12 +12,6 @@
             "name": "devvime"
         }
     ],
-    "scripts": {
-        "test": "./vendor/bin/pest"
-    },
-    "require-dev": {
-        "pestphp/pest": "^3.8"
-    },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
@@ -30,6 +23,7 @@
         "firebase/php-jwt": "^6.11",
         "catfan/medoo": "^2.2",
         "symfony/rate-limiter": "^7.3",
-        "symfony/cache": "^7.3"
+        "symfony/cache": "^7.3",
+        "mustache/mustache": "^3.0"
     }
 }
