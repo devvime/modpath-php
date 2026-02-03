@@ -50,7 +50,6 @@ class Dto
     if (isset($result['error'])) {
       $response->json($result);
       return false;
-      exit;
     }
     return true;
   }
