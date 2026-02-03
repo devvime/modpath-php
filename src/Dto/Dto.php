@@ -11,11 +11,6 @@ class Dto
   public array $allowed;
   public array $rules;
 
-  public function __construct(
-    protected Request $request,
-    protected Response $response
-  ) {}
-
   public function validateOnly(array $data, array $allowedFields, array $rules)
   {
     // Reject unexpected fields
@@ -44,18 +39,19 @@ class Dto
     return $v->validate() ? true : ["error" => $v->errors()];
   }
 
-  public function handle()
+  public function handle(Request $request, Response $response)
   {
-    $data = json_decode(json_encode($this->request->body), true);
+    $data = json_decode(json_encode($request->body), true);
     $result = $this->validateOnly(
       $data,
       $this->allowed,
       $this->rules
     );
     if (isset($result['error'])) {
-      $this->response->json($result);
+      $response->json($result);
+      return false;
       exit;
     }
+    return true;
   }
 }
-
